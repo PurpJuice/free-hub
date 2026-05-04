@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:#08080c;
+  --p:#7c3aed;
+  --p2:#a855f7;
+  --o:#ea580c;
+  --o2:#fb923c;
+  --text:#ececec;
+  --sub:#888;
+  --card:#101014;
+  --border:rgba(255,255,255,.07);
+}
+
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+
+/* ── BACKGROUND ORBS ── */
+body::before,body::after{
+  content:'';position:fixed;border-radius:50%;pointer-events:none;z-index:0;
+  filter:blur(120px);opacity:.25
+}
+body::before{width:700px;height:700px;background:radial-gradient(circle,#7c3aed,transparent 70%);top:-200px;left:-200px}
+body::after{width:600px;height:600px;background:radial-gradient(circle,#ea580c,transparent 70%);bottom:-150px;right:-150px}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:rgba(8,8,12,.8);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;
+  letter-spacing:-.3px;color:var(--text);text-decoration:none;
+}
+.nav-logo b{
+  background:linear-gradient(90deg,var(--p2),var(--o2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-pills{display:flex;gap:6px}
+.nav-pills a{
+  font-size:.78rem;font-weight:500;color:var(--sub);text-decoration:none;
+  padding:5px 16px;border-radius:100px;border:1px solid transparent;
+  transition:all .2s;
+}
+.nav-pills a:hover{color:var(--text);border-color:var(--border);background:rgba(255,255,255,.05)}
+.nav-pill-anime:hover{color:#a78bfa!important;border-color:rgba(167,139,250,.3)!important}
+.nav-pill-movies:hover{color:#fb923c!important;border-color:rgba(251,146,60,.3)!important}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  padding:100px 48px 80px;
+  max-width:1100px;margin:0 auto;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.72rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--sub);margin-bottom:24px;
+}
+.live-dot{
+  width:7px;height:7px;border-radius:50%;background:#4ade80;
+  box-shadow:0 0 10px #4ade80;
+  animation:livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+
+.hero-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(3rem,7.5vw,6rem);
+  font-weight:800;line-height:1;letter-spacing:-3px;
+  color:var(--text);margin-bottom:28px;
+}
+.hero-title .grad{
+  background:linear-gradient(120deg,#a78bfa 0%,#fb923c 60%,#f472b6 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:1.1rem;color:var(--sub);line-height:1.7;
+  max-width:480px;margin-bottom:48px;font-weight:300;
+}
+.hero-row{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;align-items:flex-start}
+.hero-stat-n{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  letter-spacing:-1.5px;color:var(--text);
+}
+.hero-stat-l{font-size:.7rem;font-weight:500;color:var(--sub);letter-spacing:.5px;text-transform:uppercase;margin-top:1px}
+.hero-divider{width:1px;height:40px;background:var(--border)}
+.hero-note{
+  font-size:.72rem;color:var(--sub);font-weight:500;
+  padding:6px 14px;border-radius:8px;background:rgba(74,222,128,.08);
+  border:1px solid rgba(74,222,128,.15);color:#4ade80;
+  display:inline-flex;align-items:center;gap:6px;
+}
+
+/* ── CONTENT AREA ── */
+.content{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+  padding:0 48px 80px;
+  display:flex;flex-direction:column;gap:56px;
+}
+
+/* ── SECTION ── */
+.sec-label{
+  display:flex;align-items:center;gap:12px;margin-bottom:24px;
+}
+.sec-label-badge{
+  font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:5px 12px;border-radius:6px;
+}
+.badge-anime{background:rgba(124,58,237,.2);color:#a78bfa;border:1px solid rgba(124,58,237,.3)}
+.badge-movies{background:rgba(234,88,12,.2);color:#fb923c;border:1px solid rgba(234,88,12,.3)}
+.sec-title{
+  font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;
+  letter-spacing:-1px;color:var(--text);
+}
+.sec-line{flex:1;height:1px;background:var(--border);margin-left:8px}
+
+/* ── CARD GRID ── */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:14px;
+}
+
+/* ── CARD ── */
+.card{
+  position:relative;display:block;text-decoration:none;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:24px;
+  overflow:hidden;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s;
+}
+.card-top-bar{
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--bar-grad,linear-gradient(90deg,#7c3aed,#a855f7));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+.card:hover .card-top-bar{transform:scaleX(1)}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--hover-border,rgba(124,58,237,.4));
+  box-shadow:0 16px 48px rgba(0,0,0,.5),var(--hover-glow,0 0 40px rgba(124,58,237,.1));
+}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:10px}
+.card-meta{display:flex;flex-direction:column;gap:6px}
+.card-type{
+  font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 8px;border-radius:5px;width:fit-content;
+  background:var(--type-bg,rgba(124,58,237,.15));color:var(--type-color,#a78bfa);
+}
+.card-type.legal{background:rgba(74,222,128,.1);color:#4ade80}
+.card-icon{
+  width:42px;height:42px;border-radius:12px;flex-shrink:0;
+  background:var(--icon-bg,rgba(124,58,237,.12));border:1px solid var(--icon-border,rgba(124,58,237,.2));
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s;
+}
+.card:hover .card-icon{transform:scale(1.1)}
+.card-name{
+  font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;
+  color:var(--text);letter-spacing:-.3px;margin-bottom:8px;
+}
+.card-desc{font-size:.8rem;color:var(--sub);line-height:1.6;font-weight:400}
+.card-footer{
+  display:flex;align-items:center;justify-content:flex-end;
+  margin-top:16px;padding-top:14px;
+  border-top:1px solid var(--border);
+}
+.card-cta{
+  font-size:.72rem;font-weight:600;letter-spacing:.3px;
+  color:var(--cta-color,#a78bfa);
+  display:flex;align-items:center;gap:5px;
+  transition:gap .15s;
+}
+.card:hover .card-cta{gap:9px}
+
+/* ── STATUS BAR ── */
+#status-bar{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:rgba(16,16,20,.95);backdrop-filter:blur(16px);
+  border:1px solid var(--border);border-radius:100px;
+  padding:10px 22px;font-size:.75rem;color:var(--sub);
+  display:flex;align-items:center;gap:8px;
+  z-index:999;transition:opacity .4s;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.spin{
+  width:12px;height:12px;border-radius:50%;
+  border:2px solid rgba(124,58,237,.3);border-top-color:#a78bfa;
+  animation:spin .7s linear infinite;flex-shrink:0;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:28px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+footer p{font-size:.72rem;color:var(--sub)}
+footer a{color:var(--sub);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+footer a:hover{border-color:var(--sub)}
+.footer-logo{
+  font-family:'Syne',sans-serif;font-size:.85rem;font-weight:800;
+  color:rgba(255,255,255,.2);
+}
+
+@media(max-width:680px){
+  nav{padding:0 20px}
+  .hero{padding:70px 20px 60px}
+  .hero-title{letter-spacing:-2px}
+  .content{padding:0 20px 60px}
+  footer{padding:24px 20px}
+  #status-bar{width:calc(100% - 40px)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Free<b>Hub</b></a>
+  <div class="nav-pills">
+    <a href="#anime" class="nav-pill-anime">Anime</a>
+    <a href="#movies" class="nav-pill-movies">Movies &amp; TV</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow"><span class="live-dot"></span>Curated &amp; Updated</div>
+  <h1 class="hero-title">Stream anything.<br><span class="grad">Pay nothing.</span></h1>
+  <p class="hero-sub">The best free streaming sites in one place. No subscriptions, no sign-ups — just hit play.</p>
+  <div class="hero-row">
+    <div class="hero-stat">
+      <span class="hero-stat-n" id="site-count">12</span>
+      <span class="hero-stat-l">Sites</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">2</span>
+      <span class="hero-stat-l">Categories</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-n">$0</span>
+      <span class="hero-stat-l">Forever</span>
+    </div>
+    <div class="hero-note">&#10003;&nbsp; Use an adblocker for best results</div>
+  </div>
+</section>
+
+<div class="content">
+
+  <!-- ANIME -->
+  <div id="anime">
+    <div class="sec-label">
+      <span class="sec-label-badge badge-anime">Anime</span>
+      <h2 class="sec-title">Watch Anime</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="card-grid">
+
+      <a class="card" href="https://gogoanime.by" target="_blank" rel="noopener"
+         style="--hover-border:rgba(124,58,237,.4);--hover-glow:0 0 50px rgba(124,58,237,.08);--bar-grad:linear-gradient(90deg,#7c3aed,#a855f7);--icon-bg:rgba(124,58,237,.12);--icon-border:rgba(124,58,237,.2);--type-bg:rgba(124,58,237,.15);--type-color:#a78bfa;--cta-color:#a78bfa">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+        <div class="card-name">GogoAnime</div>
+        <div class="card-desc">One of the most reliable anime streaming destinations. Sub and dub options for thousands of titles.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://www.crunchyroll.com" target="_blank" rel="noopener"
+         style="--hover-border:rgba(74,222,128,.3);--hover-glow:0 0 50px rgba(74,222,128,.06);--bar-grad:linear-gradient(90deg,#16a34a,#4ade80);--icon-bg:rgba(74,222,128,.1);--icon-border:rgba(74,222,128,.2);--type-bg:rgba(74,222,128,.1);--type-color:#4ade80;--cta-color:#4ade80">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type legal">Legal</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+        </div>
+        <div class="card-name">Crunchyroll</div>
+        <div class="card-desc">The biggest legal anime platform. Free ad-supported tier with simulcasts and a massive back catalog.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://welcome.hidive.com" target="_blank" rel="noopener"
+         style="--hover-border:rgba(74,222,128,.3);--hover-glow:0 0 50px rgba(74,222,128,.06);--bar-grad:linear-gradient(90deg,#16a34a,#4ade80);--icon-bg:rgba(74,222,128,.1);--icon-border:rgba(74,222,128,.2);--type-bg:rgba(74,222,128,.1);--type-color:#4ade80;--cta-color:#4ade80">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type legal">Legal</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        </div>
+        <div class="card-name">HIDIVE</div>
+        <div class="card-desc">Official simulcast platform with exclusive titles and classic series. Free trial available, no credit card needed.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://myanimelist.net" target="_blank" rel="noopener"
+         style="--hover-border:rgba(74,222,128,.3);--hover-glow:0 0 50px rgba(74,222,128,.06);--bar-grad:linear-gradient(90deg,#16a34a,#4ade80);--icon-bg:rgba(74,222,128,.1);--icon-border:rgba(74,222,128,.2);--type-bg:rgba(74,222,128,.1);--type-color:#4ade80;--cta-color:#4ade80">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type legal">Database</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="0.5" fill="currentColor"/><circle cx="3" cy="12" r="0.5" fill="currentColor"/><circle cx="3" cy="18" r="0.5" fill="currentColor"/></svg></div>
+        </div>
+        <div class="card-name">MyAnimeList</div>
+        <div class="card-desc">The internet's largest anime database. Track what you've watched, discover new series, read reviews.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://anix.com.co" target="_blank" rel="noopener"
+         style="--hover-border:rgba(124,58,237,.4);--hover-glow:0 0 50px rgba(124,58,237,.08);--bar-grad:linear-gradient(90deg,#7c3aed,#a855f7);--icon-bg:rgba(124,58,237,.12);--icon-border:rgba(124,58,237,.2);--type-bg:rgba(124,58,237,.15);--type-color:#a78bfa;--cta-color:#a78bfa">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
+        </div>
+        <div class="card-name">Anix</div>
+        <div class="card-desc">Fast, clean anime streaming. Wide catalog with both sub and dub. Minimal ads, great interface.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://aniwatch.co.at" target="_blank" rel="noopener"
+         style="--hover-border:rgba(124,58,237,.4);--hover-glow:0 0 50px rgba(124,58,237,.08);--bar-grad:linear-gradient(90deg,#7c3aed,#a855f7);--icon-bg:rgba(124,58,237,.12);--icon-border:rgba(124,58,237,.2);--type-bg:rgba(124,58,237,.15);--type-color:#a78bfa;--cta-color:#a78bfa">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        </div>
+        <div class="card-name">AniWatch</div>
+        <div class="card-desc">HD quality streams, sub and dub, clean layout. One of the most consistent anime sites around.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- MOVIES & TV -->
+  <div id="movies">
+    <div class="sec-label">
+      <span class="sec-label-badge badge-movies">Movies &amp; TV</span>
+      <h2 class="sec-title">Watch Movies &amp; TV</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="card-grid">
+
+      <a class="card" href="https://www.cineby.sc" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17,2 12,7 7,2"/><line x1="7" y1="2" x2="7" y2="7"/><line x1="12" y1="2" x2="12" y2="7"/><line x1="17" y1="2" x2="17" y2="7"/></svg></div>
+        </div>
+        <div class="card-name">Cineby</div>
+        <div class="card-desc">Clean, fast movie and TV streaming. Great server speeds, modern interface, huge library.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://movienova.sc" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+        </div>
+        <div class="card-name">MovieNova</div>
+        <div class="card-desc">Large movie and TV library with multiple streaming servers to choose from.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://movielair.cc" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+        <div class="card-name">MovieLair</div>
+        <div class="card-desc">HD movies and TV shows. Clean layout, fast streams, easy navigation.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://7reels.cc" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/></svg></div>
+        </div>
+        <div class="card-name">7Reels</div>
+        <div class="card-desc">Movies and series with multiple server options. Use an adblocker for best experience.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://ww25.soap2day.day" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        </div>
+        <div class="card-name">Soap2Day</div>
+        <div class="card-desc">Massive library of movies and TV shows. One of the most well-known free streaming sites.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+      <a class="card" href="https://moviebox.ph" target="_blank" rel="noopener"
+         style="--hover-border:rgba(234,88,12,.4);--hover-glow:0 0 50px rgba(234,88,12,.08);--bar-grad:linear-gradient(90deg,#ea580c,#fb923c);--icon-bg:rgba(234,88,12,.12);--icon-border:rgba(234,88,12,.2);--type-bg:rgba(234,88,12,.15);--type-color:#fb923c;--cta-color:#fb923c">
+        <div class="card-top-bar"></div>
+        <div class="card-header">
+          <div class="card-meta"><span class="card-type">Stream</span></div>
+          <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3h2a2 2 0 0 1 2 2v2"/><path d="M8 3H6a2 2 0 0 0-2 2v2"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+        </div>
+        <div class="card-name">MovieBox</div>
+        <div class="card-desc">Extensive movie and TV catalog with multiple quality options. Reliable and frequently updated.</div>
+        <div class="card-footer"><span class="card-cta">Open site &rarr;</span></div>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">FreeHub</div>
+  <p>All links open in a new tab &nbsp;&middot;&nbsp; <a href="https://ublockorigin.com" target="_blank" rel="noopener">Install uBlock Origin</a> for a better experience</p>
+</footer>
+
+<div id="status-bar">
+  <span class="spin"></span>
+  Checking which sites are online&hellip;
+</div>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  async function checkAvailability() {
+    const cards = Array.from(document.querySelectorAll('a.card[href^="http"]'));
+    await Promise.all(cards.map(async card => {
+      const url = card.getAttribute('href');
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 8000);
+      try {
+        await fetch(url, { mode: 'no-cors', cache: 'no-store', signal: ctrl.signal });
+        clearTimeout(timer);
+      } catch {
+        clearTimeout(timer);
+        card.style.display = 'none';
+      }
+    }));
+
+    document.querySelectorAll('#anime, #movies').forEach(section => {
+      const visible = section.querySelectorAll('a.card:not([style*="display: none"])');
+      if (visible.length === 0) section.style.display = 'none';
+    });
+
+    const live = document.querySelectorAll('a.card:not([style*="display: none"])').length;
+    const el = document.getElementById('site-count');
+    if (el) el.textContent = live;
+
+    const bar = document.getElementById('status-bar');
+    if (bar) {
+      bar.innerHTML = '<span style="color:#4ade80;font-size:1rem">&#10003;</span> ' + live + ' sites online';
+      setTimeout(() => { bar.style.opacity = '0'; setTimeout(() => bar.remove(), 400); }, 2500);
+    }
+  }
+
+  checkAvailability();
+</script>
+</body>
+</html>
